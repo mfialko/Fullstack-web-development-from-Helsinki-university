@@ -1,1 +1,1 @@
-All work of exercise 1.2 is made within Course Information App that resides in 1.1 step folder and can be showed as commit 1.2 of the App
+All work of exercise 1.2 is made within Course Information App that resides in 1.1 step folder and can be showed as [commit 1.2 of the App](https://github.com/mfialko/Fullstack-web-development-from-Helsinki-university/commit/4b330f4af5db80fa016dd1f0b641a77751b915d7)
