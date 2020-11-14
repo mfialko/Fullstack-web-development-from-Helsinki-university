@@ -11,17 +11,14 @@ const App = () => {
   const numOfExercises = [
     {
       partName: 'Fundamentals of React',
-      partNum: 1,
       exercisesNum: 10
     },
     {
       partName: 'Using props to pass data',
-      partNum: 2,
       exercisesNum: 7
     },
     {
       partName: 'State of a component',
-      partNum: 3,
       exercisesNum: 14
     },
   ];

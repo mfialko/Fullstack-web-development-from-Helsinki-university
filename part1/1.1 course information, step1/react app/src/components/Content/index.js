@@ -1,4 +1,5 @@
 import React from 'react';
+
 //components
 import Part from './Part';
 
@@ -7,10 +8,10 @@ const Content = ({content}) => {
 
     return (
         <div>
-            {content.map((item) => {
+            {content.map((item, index) => {
                 return (
                     <Part 
-                        key={'part' + item.partNum}
+                        key={'part' + index}
                         name={item.partName}
                         num={item.exercisesNum} 
                     />
