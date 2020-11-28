@@ -22,6 +22,23 @@ const App = () => {
     setBad(prev => prev + 1);
   }
 
+  const getAverageScore = () => {
+    let scores = {
+      good: 1,
+      neutral: 0,
+      bad: -1
+    }
+    let sumOfScores = good * scores.good + neutral * scores.neutral + bad * scores.bad;
+    let numOfScores = good + neutral + bad;
+    return numOfScores > 0 ? (sumOfScores)/numOfScores : 0;
+  }
+
+  const getPositivePercent = () => {
+    let numOfScores = good + neutral + bad;
+    let positive = numOfScores > 0 ? (good/numOfScores) : 0;
+    return `${positive * 100}%`;
+  }
+
   return (
     <div>
       <h1>give feedback</h1>
@@ -36,6 +53,9 @@ const App = () => {
           <li>good {good}</li>
           <li>neutral {neutral}</li>
           <li>bad {bad}</li>
+          <li>all {good + neutral + bad}</li>
+          <li>average {getAverageScore()}</li>
+          <li>positive {getPositivePercent()}</li>
         </ul>
       </div>
     </div>
