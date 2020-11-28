@@ -17,6 +17,16 @@ const Button = ({ label, handleClick }) => {
   )
 }
 
+const Anecdote = ({ anecdote, votes }) => {
+  return (
+    <div className="anecdote">
+      <span>{anecdote}</span>
+      <span>has {votes} votes</span>
+    </div>
+  )
+}
+
+
 const Anecdotes = ({ anecdotes }) => {
   const [selected, setSelected] = useState(0);
   const [votes, setVote] = useState(Array(anecdotes.length).fill(0));
@@ -33,15 +43,21 @@ const Anecdotes = ({ anecdotes }) => {
       return newVotes;
     });
   }
+  
+  const getMostVotedAnecdote = () => {
+    return votes.indexOf(Math.max.apply(Math, votes));
+  }
 
   return (
     <div className="anecdotes-wrapper">
-      <div className="anecdote">
-        <span>{anecdotes[selected]}</span>
-        <span>has {votes[selected]} votes</span>
-      </div>
+      <Anecdote anecdote={anecdotes[selected]} votes={votes[selected]} />
       <Button label="vote" handleClick={() => upvoteAnecdote(selected)} />
       <Button label="next anecdote" handleClick={() => getRandomAnecdote(anecdotes.length)} />
+
+      <div className="most-voted">
+        <h2>Anecdote with most votes</h2>
+        <Anecdote anecdote={anecdotes[getMostVotedAnecdote(votes)]} votes={votes[getMostVotedAnecdote()]} />
+      </div>
     </div>
   )
 }
