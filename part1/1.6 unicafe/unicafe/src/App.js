@@ -4,6 +4,15 @@ const Button = ({ label, handleClick }) => {
   return <button onClick={handleClick}>{label}</button>;
 };
 
+const Statistic = ({text, value}) => {
+  return (
+    <tr>
+      <td>{text}</td> 
+      <td>{value}</td>
+    </tr>
+  )
+}
+
 const Statistics = ({ good, neutral, bad }) => {
   const getAverageScore = () => {
     let scores = {
@@ -29,14 +38,14 @@ const Statistics = ({ good, neutral, bad }) => {
       {good + neutral + bad === 0 ? (
         <span>No feedback given</span>
       ) : (
-        <ul className="feedback-list">
-          <li>good {good}</li>
-          <li>neutral {neutral}</li>
-          <li>bad {bad}</li>
-          <li>all {good + neutral + bad}</li>
-          <li>average {getAverageScore()}</li>
-          <li>positive {getPositivePercent()}</li>
-        </ul>
+        <table>
+          <Statistic text={"good"} value={good} />
+          <Statistic text={"neutral"} value={neutral} />
+          <Statistic text={"bad"} value={bad} />
+          <Statistic text={"all"} value={good + neutral + bad} />
+          <Statistic text={"average"} value={getAverageScore()} />
+          <Statistic text={"positive"} value={getPositivePercent()} />
+        </table>
       )}
     </div>
   );
@@ -61,7 +70,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="feedback">
       <h1>give feedback</h1>
       <div className="buttons">
         <Button label="good" handleClick={addGoodFeedback} />
