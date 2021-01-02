@@ -8,7 +8,7 @@ import Total from './Total';
 
 const Course = ({ course }) => {
 
-    const totalNumOfExercises = course.parts.reduce((a, b) => (a + b.exercisesNum), 0);
+    const totalNumOfExercises = course.parts.reduce((a, b) => (a + b.exercises), 0);
 
     return (
         <div>

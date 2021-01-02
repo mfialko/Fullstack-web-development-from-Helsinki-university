@@ -12,8 +12,8 @@ const Content = ({content}) => {
                 return (
                     <Part 
                         key={'part' + index}
-                        name={item.partName}
-                        num={item.exercisesNum} 
+                        name={item.name}
+                        num={item.exercises} 
                     />
                 )
             })}
