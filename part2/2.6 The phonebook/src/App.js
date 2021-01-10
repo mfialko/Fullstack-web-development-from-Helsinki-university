@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
 //components
@@ -26,6 +27,15 @@ const App = () => {
   useEffect(() => {
     setShownPhones(persons);
   }, [persons]);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        setPersons(response.data)
+      });
+
+  }, []);
 
   const addNewPerson = (event) => {
     setNewName(personData => {
