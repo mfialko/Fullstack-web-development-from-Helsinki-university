@@ -4,11 +4,11 @@ import React from 'react';
 import SinglePerson from './SinglePerson';
 
 
-const PhonesList = ({ phoneList }) => {
+const PhonesList = ({ phoneList, deleteContact }) => {
 
     return (
         <div className="phones">
-            {phoneList.map(i => <SinglePerson key={`${i.name}`} name={i.name} number={i.number} />)}
+            {phoneList.map(i => <SinglePerson deleteContact={deleteContact} key={`${i.id}-${i.name}`} name={i.name} id={i.id} number={i.number} />)}
         </div>
     )
 }
