@@ -6,7 +6,7 @@ import AddPhoneForm from './components/addPhoneForm';
 import PhonesList from './components/PhonesList';
 import SearchFilter from './components/SearchFilter';
 import ContactsService from './services/phonebook';
-
+import Notification from './components/Notification';
 
 
 const App = () => {
@@ -18,17 +18,22 @@ const App = () => {
 
   const [ shownPhones, setShownPhones ] = useState([]);
   const [ searchValue, setSearchValue ] = useState('');
+  const [message, setMessage] = useState({ error: null, text: ''});
 
   useEffect(() => {
     setShownPhones(persons);
   }, [persons]);
 
   useEffect(() => {
-    ContactsService.getAll()
-      .then(response => {
-        setPersons(response);
-      });
+    getPersons();
   }, []);
+
+  const getPersons = () => {
+    ContactsService.getAll()
+    .then(response => {
+      setPersons(response);
+    });
+  }
 
   const addNewPerson = (event) => {
 
@@ -63,6 +68,12 @@ const App = () => {
       }
       ContactsService.create(newPerson)
         .then(person => {
+          setMessage(
+            { error: false, text: `Contact ${newPerson.name} was added`}
+          );
+          setTimeout(() => {
+            setMessage({ error: '', text: ''})
+          }, 5000);
           setPersons(persons => [ ...persons, person]);
           setNewName({name: '', number: ''});
         })
@@ -75,8 +86,23 @@ const App = () => {
         }
         ContactsService.update(personId, newPerson)
           .then(UpdatedPerson => {
+            setMessage(
+              { error: false, text: `Contact ${newPerson.name} was updated`}
+            );
+            setTimeout(() => {
+              setMessage({ error: '', text: ''})
+            }, 5000);
             setPersons(persons.map(person => person.name !== newName.name ? person : UpdatedPerson))
             setNewName({name: '', number: ''});
+          })
+          .catch(error => {
+            setMessage(
+              { error: true, text: `Contact ${newPerson.name} was already deleted`}
+            );
+            setTimeout(() => {
+              setMessage({ error: '', text: ''})
+            }, 5000);
+            getPersons();
           })
       }
     }
@@ -115,6 +141,21 @@ const App = () => {
         ContactsService.deleteById(id)
           .then(person => {
             setPersons(persons => [ ...persons.filter(item => item.id !== id)]);
+            setMessage(
+              { error: false, text:  `Contact was deleted`}
+            );
+            setTimeout(() => {
+              setMessage({ error: '', text: ''})
+            }, 5000);
+          })
+          .catch(error => {
+            setMessage(
+              { error: true, text:  `Contact was already deleted`}
+            );
+            setTimeout(() => {
+              setMessage({ error: '', text: ''})
+            }, 5000);
+            getPersons();
           })
       } else {
         alert(`${newName.name} is already deleted from phonebook`);
@@ -126,6 +167,7 @@ const App = () => {
     
     <div>
       <h2>Phonebook</h2>
+      {message.text && <Notification message={message} />}
       <SearchFilter 
         filterPhones={filterPhones}
         searchValue={searchValue}
